@@ -193,4 +193,4 @@ int main()
     auto p = dot(Vector<double>({1,2,3,4,5}),Vector<double>({1,2,3,4,5}));
     std::cout << p << std::endl;
 }
-//QUe onda  estoy probando
+//QUe onda  estoy probandosdfjklnakjsldnfasmdnf
