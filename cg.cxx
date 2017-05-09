@@ -47,7 +47,7 @@ int cg(const Matrix<T> &A, const Vector<T> &b, Vector<T> &x, T tol, T maxiter){/
 		if (r_new<tol*tol){
 			return (x);
 		}//end
-		p= r+(r_new/r_old)*p;//With this "beta" variable can be omitted
+		p= r+(r_new/r_old)*p;//With this line of code the variable "beta"  can be omitted
 		r_old=r_new;
 	}//end for i
 	
