@@ -100,6 +100,7 @@ public:
         }
     }
 
+
 		// Transpose
 	Matrix<T> transpose()
 	{
@@ -114,10 +115,50 @@ public:
 		return Transp;
 	};
 
+ //
+  //Get data pointer (constant reference) Access data for functions
+    inline const T& get(const int& i, const int& j) const { return data.at({i,j}); }
+
 private:
-    const std::size_t row;
-    const std::size_t col;
+ std::size_t row; // Removed const, otherwise copy assignment operator was implicitly deleted.
+ std::size_t col;// Same here. 
+
     std::map<std::array<int,2>,T> data;
 };
+
+
+
+		// Matrix times scalar
+	template<typename T, typename S>
+	//auto operator*(const Vector<V>& vec, const T& scal)   //Change return type!
+	Matrix<T> operator*(const Matrix<T>& M, const S& scal)   //Change return type!
+	{
+		Matrix<typename std::common_type<T,S>::type> result(M.get_row(),M.get_col());
+		for (int r=0; r<result.get_row();r++)
+        {
+            for (int c=0; c<result.get_col();c++)
+            {
+				result[{r,c}]=M.get(r,c)*scal;
+            };
+        };
+	return result;
+	}
+
+		// Matrix times scalar
+	template<typename T, typename S>
+	//auto operator*(const Vector<V>& vec, const T& scal)   //Change return type!
+	Matrix<T> operator*(const S& scal, const Matrix<T>& M)   //Change return type!
+	{
+		Matrix<typename std::common_type<T,S>::type> result(M.get_row(),M.get_col());
+		for (int r=0; r<result.get_row();r++)
+        {
+            for (int c=0; c<result.get_col();c++)
+            {
+				result[{r,c}]=M.get(r,c)*scal;
+            };
+        };
+	return result;
+	}
+
 
 #endif // MATRIX_H_INCLUDED

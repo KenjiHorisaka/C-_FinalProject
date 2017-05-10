@@ -46,6 +46,13 @@ public:
     {
         std::uninitialized_copy(lists.begin(), lists.end(), data);
     }
+	
+	//Destructor
+    ~Vector() {
+		n=0;
+	delete[] data;}
+
+		
 
     //The Vector supports the copy and move assignment operators.
     //It is allowed to change the length of the Vector upon assignment,
