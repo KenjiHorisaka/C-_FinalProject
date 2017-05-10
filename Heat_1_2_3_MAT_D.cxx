@@ -105,9 +105,13 @@ int main()
 	M[{2,0}]=7;
 	M[{2,1}]=8;
 	M[{2,2}]=9;
+<<<<<<< HEAD
 	double maxiter=3;
 	double tol=0.0000001;
 	
+=======
+	Vector<double> p({-13.,-30.,-47.});
+>>>>>>> origin/master
 /*	M.print();
 	std::cout<<" "<<std::endl;
 	(M*s).print();
@@ -118,6 +122,7 @@ int main()
 	std::cout<<" "<<std::endl;
 	(s*V).print();
 	std::cout<<" "<<std::endl;*/
+<<<<<<< HEAD
 	// M.matvec(V).print();
 	// std::cout<<" "<<std::endl;
 	// Matrix<double> M2(3,3);
@@ -146,10 +151,23 @@ int main()
 	std::cout<<"cg="<<cg(M,b,x,tol,maxiter)<<std::endl;
 	std::cout<<"Vector x finished:"<<std::endl;
 	x.print();
+=======
+	//M.matvec(V).print();
+	M.matvec(p).print();
+	M.matvec(V).print();
+	//std::cout<<" "<<std::endl;
+	//Matrix<double> M2(3,3);
+	//std::cout<<" "<<std::endl;
+	//V2.print();
+	//M2=M;
+	//M2.print();
+	
+>>>>>>> origin/master
 	//auto p = dot(Vector<double>({1,2,3,4,5}),Vector<double>({1,2,3,4,5}));
 
 //Heat1D(0.3125,3,0.1);
-//Heat2D(0.3125,3,0.1);
+//Heat2D(0.3125,3,0.1).exact(.1).print();
+
 return 0;
 
 //transpose vector
