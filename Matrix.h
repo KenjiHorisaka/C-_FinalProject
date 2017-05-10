@@ -61,6 +61,7 @@ public:
             for (int r=0; r<row;r++)
                 for (int c=0; c<col;c++)
                     result.get(r)+=data[{r,c}]*vec.get(c);
+					//result.print();
             return result;
         }
     }

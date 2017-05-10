@@ -27,13 +27,14 @@ int main()
 	Matrix<double> M(3,3);
 	M[{0,0}]=1;
 	M[{0,1}]=2;
-	M[{0,2}]=1;
-	M[{1,0}]=3;
-	M[{1,2}]=0;
-	M[{1,1}]=1;
-	M[{2,0}]=1;
-	M[{2,1}]=4;
-	M[{2,2}]=2;
+	M[{0,2}]=3;
+	M[{1,0}]=4;
+	M[{1,1}]=5;
+	M[{1,2}]=6;
+	M[{2,0}]=7;
+	M[{2,1}]=8;
+	M[{2,2}]=9;
+	Vector<double> p({-13.,-30.,-47.});
 /*	M.print();
 	std::cout<<" "<<std::endl;
 	(M*s).print();
@@ -44,18 +45,21 @@ int main()
 	std::cout<<" "<<std::endl;
 	(s*V).print();
 	std::cout<<" "<<std::endl;*/
+	//M.matvec(V).print();
+	M.matvec(p).print();
 	M.matvec(V).print();
-	std::cout<<" "<<std::endl;
-	Matrix<double> M2(3,3);
-	std::cout<<" "<<std::endl;
+	//std::cout<<" "<<std::endl;
+	//Matrix<double> M2(3,3);
+	//std::cout<<" "<<std::endl;
 	//V2.print();
-	M2=M;
+	//M2=M;
 	//M2.print();
 	
-	auto p = dot(Vector<double>({1,2,3,4,5}),Vector<double>({1,2,3,4,5}));
+	//auto p = dot(Vector<double>({1,2,3,4,5}),Vector<double>({1,2,3,4,5}));
 
 //Heat1D(0.3125,3,0.1);
-//Heat2D(0.3125,3,0.1);
+//Heat2D(0.3125,3,0.1).exact(.1).print();
+
 return 0;
 
 //transpose vector

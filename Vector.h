@@ -50,7 +50,7 @@ public:
 	//Destructor
     ~Vector() {
 		n=0;
-	delete[] data;}
+		data = nullptr;}
 
 		
 

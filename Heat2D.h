@@ -72,7 +72,7 @@ class Heat2D
 
     Vector<double> exact(double t) const
     {
-        double dx = 1/((double)m+1);
+        //double dx = 1/((double)m+1);
 
         /*Replace this line with a for loop to fill the array*/
         std::initializer_list<double> arr {0.25,0.25,0.25,0.5,0.5,0.5,0.75,0.75,0.75};
