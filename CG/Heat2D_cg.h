@@ -15,6 +15,7 @@
 
 #include "Vector.h"
 #include "Matrix.h"
+#include "cg.h"
 
 class Heat2D
 	{
@@ -82,7 +83,15 @@ class Heat2D
         result=std::exp(-n*std::pow(M_PI,2)*alpha*t)*u_x;
         return result;
     }
-
+	Vector<double> solve(double t_end) const{
+		std::initializer_list<double> b_list {0.25,0.25,0.25,0.5,0.5,0.5,0.75,0.75,0.75};
+		std::initializer_list<double> x_list {0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5};// Arbitrary I will assume ones for sake of simplicity
+		//This vector can be changed to be made automatically
+        Vector<double> b(b_list);
+		Vector<double> x(x_list);
+		Vector<double> sol = cg<double>(M,b,x,tol,maxiter);
+	//Vector<double> u_x(arr);
+	}//end solve
     void printM()
     {
         std::cout<<"Matrix M: "<<std::endl;

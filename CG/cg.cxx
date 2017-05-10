@@ -28,25 +28,25 @@ int cg(const Matrix<T> &A, const Vector<T> &b, Vector<T> &x, T tol, T maxiter){/
 	
 	The abovementioned conditions have to be evaluated to make the function more robust.
 	*/
-	
-	auto r=b-A*x;//x serves both as the initial guess (x_0 in the pseudocode) and as the result (when iteration ends)
+	//d=B.matvec(c);
+	auto r=b-A.matvec(x);//x serves both as the initial guess (x_0 in the pseudocode) and as the result (when iteration ends)
 	auto p=r;
-	auto r_old= T dot(r,r);
+	auto r_old= dot(r,r);//check this line
 	/*
 	The dot product of two column vectors a and b can be computed as the single entry of the matrix product
 	[a dot b]=a'*b;
 	*/
 	
 	for (int i=0;i<maxiter-1;i++){
-		auto Ap=A*p;
-		auto alpha= r_old/ T dot(Ap,p);//This is correct
+		auto Ap=A.matvec(p);//this is an extra line
+		auto alpha= r_old/ dot(Ap,p);//This is correct
 		x=x+alpha*p;//This is correct
 		r=r-alpha*Ap;//This is correct
-		r_new=T dot(r,r);//Additional to the pseudocode
-		
+		r_new=dot(r,r);//Additional to the pseudocode
+		x.print();
 		if (r_new<tol*tol){
-			return (x);
-		}//end
+			return (i);
+		}//end if
 		p= r+(r_new/r_old)*p;//With this line of code the variable "beta"  can be omitted
 		r_old=r_new;
 	}//end for i

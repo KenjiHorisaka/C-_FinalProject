@@ -14,6 +14,7 @@
 #include "Matrix.h"
 #include "Heat1D.h"
 #include "Heat2D.h"
+#include "cg.h"
 
 int main()
 {
