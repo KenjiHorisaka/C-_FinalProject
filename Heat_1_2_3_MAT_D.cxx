@@ -53,9 +53,9 @@ int cg(Matrix<T> &A, Vector<T> &b, Vector<T> &x, T &tol, T &maxiter){// I maxite
 			std::cout<<"AP:"<<std::endl;
 			Ap.print();
 			
-		auto alpha= r_old/ dot(Ap,p);//This is correct
+		double alpha= r_old/ dot(Ap,p);//This is correct
 			
-			std::cout<<"alpha:"<<alpha<<std::endl;
+			std::cout<<"alpha:"<<alpha*0.0005<<std::endl;
 			
 		x=x+alpha*p;//This is correct
 			
