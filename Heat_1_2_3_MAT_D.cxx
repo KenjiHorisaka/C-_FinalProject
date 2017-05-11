@@ -40,14 +40,17 @@ int cg(Matrix<T> &A, Vector<T> &b, Vector<T> &x, T &tol, T &maxiter){// I maxite
 	auto r_old= dot(r,r);//check this line
 			
 			std::cout<<"r_old"<<r_old<<std::endl;
-	auto r_new=0;
+	auto r_new=0.0;
 	/*
 	The dot product of two column vectors a and b can be computed as the single entry of the matrix product
 	[a dot b]=a'*b;
 	*/
 	
 	for (int i=0;i<maxiter-1;i++){
-
+		std::cout<<"P al inicio"<<std::endl;
+		p.print();
+		std::cout<<"A al inicio"<<std::endl;
+		A.print();
 		auto Ap=A.matvec(p);//this is an extra line
 			
 			std::cout<<"AP:"<<std::endl;
@@ -55,7 +58,7 @@ int cg(Matrix<T> &A, Vector<T> &b, Vector<T> &x, T &tol, T &maxiter){// I maxite
 			
 		double alpha= r_old/ dot(Ap,p);//This is correct
 			
-			std::cout<<"alpha:"<<alpha*0.0005<<std::endl;
+			std::cout<<"alpha:"<<alpha<<"    "<<dot(Ap,p)<<std::endl;
 			
 		x=x+alpha*p;//This is correct
 			
@@ -64,7 +67,7 @@ int cg(Matrix<T> &A, Vector<T> &b, Vector<T> &x, T &tol, T &maxiter){// I maxite
 			
 		r=r-alpha*Ap;//This is correct
 			
-			std::cout<<"r:"<<std::endl;
+			std::cout<<"r:"<<dot(r,r)<<std::endl;
 			r.print();
 			
 		r_new=dot(r,r);//Additional to the pseudocode
@@ -81,6 +84,7 @@ int cg(Matrix<T> &A, Vector<T> &b, Vector<T> &x, T &tol, T &maxiter){// I maxite
 			p.print();
 			
 		r_old=r_new;
+		std::cout<<"r_old:   "<<r_old<<std::endl;
 	}//end for i
 	
 	return (-1);//Not converged during the iterations (i.e r_new did not meet the tolerance threshold)
@@ -105,7 +109,7 @@ int main()
 	M[{2,0}]=7;
 	M[{2,1}]=8;
 	M[{2,2}]=9;
-	double maxiter=3;
+	double maxiter=5;
 	double tol=0.0000001;
 	Vector<double> p({-13.,-30.,-47.});
 
@@ -147,10 +151,10 @@ int main()
 	std::cout<<"cg="<<cg(M,b,x,tol,maxiter)<<std::endl;
 	std::cout<<"Vector x finished:"<<std::endl;
 	x.print();
-
+	std::cout<<45/233<<std::endl;
 	//M.matvec(V).print();
-	M.matvec(p).print();
-	M.matvec(V).print();
+	//M.matvec(p).print();
+	//M.matvec(V).print();
 	//std::cout<<" "<<std::endl;
 	//Matrix<double> M2(3,3);
 	//std::cout<<" "<<std::endl;
