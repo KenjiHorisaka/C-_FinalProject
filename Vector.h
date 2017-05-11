@@ -23,7 +23,7 @@ private:
 public:
     //General parameters
     int print_space = 5;
-    int decimal_space = 1;
+    int decimal_space = 12;
 
     //Default constructor that sets the length to zero
     Vector(): n(0), data(nullptr) {}
@@ -50,7 +50,8 @@ public:
 	//Destructor
     ~Vector() {
 		n=0;
-		data = nullptr;}
+		delete[] data;}
+		//data = nullptr;}
 
 		
 
