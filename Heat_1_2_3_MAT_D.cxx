@@ -15,7 +15,7 @@
 #include "Matrix.h"
 #include "Heat1D.h"
 #include "Heat2D.h"
-
+#include <memory>
 template <typename T>
 int cg(Matrix<T> &A, Vector<T> &b, Vector<T> &x, T &tol, T &maxiter){// I maxiter (Dont know if is correct)
 	/* 
