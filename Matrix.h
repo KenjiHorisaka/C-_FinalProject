@@ -24,7 +24,7 @@ class Matrix
 public:
     //General parameters
     int print_space = 5;
-    int decimal_space = 15;
+    int decimal_space = 3;
 
     //Default Constructor
     Matrix(): row(0), col(0){}

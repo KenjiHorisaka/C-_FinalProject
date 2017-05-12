@@ -23,7 +23,7 @@ private:
 public:
     //General parameters
     int print_space = 5;
-    int decimal_space = 15;
+    int decimal_space = 3;
 
     //Default constructor that sets the length to zero
     Vector(): n(0), data(nullptr) {}
