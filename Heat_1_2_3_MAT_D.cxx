@@ -10,6 +10,7 @@
 #include <iostream>
 #include <algorithm>
 #include <cmath>
+#include <memory>
 
 #include "Vector.h"
 #include "Matrix.h"
@@ -106,6 +107,7 @@ int main()
 	Vector<double> V2(3);
 	Matrix<double> M(3,3);
 	M[{0,0}]=1;
+<<<<<<< HEAD
 	M[{0,1}]=-0.5;
 	M[{0,2}]=0;
 	M[{1,0}]=-0.5;
@@ -114,6 +116,16 @@ int main()
 	M[{2,0}]=0;
 	M[{2,1}]=-0.5;
 	M[{2,2}]=1;
+=======
+	M[{0,1}]=2;
+	M[{0,2}]=2;
+	M[{1,0}]=2;
+	M[{1,1}]=5;
+	M[{1,2}]=2;
+	M[{2,0}]=2;
+	M[{2,1}]=2;
+	M[{2,2}]=9;
+>>>>>>> 83806be7df84340f0e89c84bf2491cc652d0abd9
 	double maxiter=5;
 	double tol=0.02;
 	Vector<double> p({-13.,-30.,-47.});
