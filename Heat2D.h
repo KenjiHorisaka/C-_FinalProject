@@ -33,7 +33,7 @@ class Heat2D
 			for (int r=0; r<I.get_row();r++)
 				I[{r,r}]=1;
 
-		// Index vector for nodes
+/*		// Index vector for nodes
 		Matrix<double> Ind(row,col);
         for(int i=0;i<pow(m,k+1);i++)
         {
@@ -43,9 +43,9 @@ class Heat2D
             num=num-Ind[{i,1}]*pow(m,dim);
             dim=dim-1;
             Ind[{i,dim}]=num;
-        }
+        }*/
 
-		//Matrix D
+/*		//Matrix D
 		Matrix<int> D(row,col);
 		for (int i=0; i<row; i++){
 			D[{i,i}]=-2*(k+1);
@@ -63,9 +63,33 @@ class Heat2D
 					}
 				}
 			}
+		};*/
+
+		//Matrix D
+		Matrix<double> D(row,col);
+		for (int i=0; i<row; i++){
+			D[{i,i}]=-2*(k+1);
+			for (int kd=0; kd<=k; kd++){
+				int jump=pow(m,kd);
+				if(fmod(floor(i/jump),m)==0){ //left wall
+					D[{i,(i+jump)}]=1;
+					D[{(i+jump),i}] = 1;
+					}
+				else {if(fmod(floor((i+jump)/jump),m)==0){ //right wall
+					D[{i,(i-jump)}]=1;
+					D[{(i-jump),i}]=1;
+					}
+				else{
+					D[{i,(i-jump)}]=1;
+					D[{i,(i+jump)}]=1;
+					}
+				}
+			}
 		};
 
-        //Initialize M
+
+
+        //Initialize M // USE ITERATOR OF MAP
         for (int r=0; r<row;r++)
             for (int c=0; c<col;c++)
                 M[{r,c}]=I[{r,c}]-(alpha*dt/(dx*dx))*D[{r,c}];
