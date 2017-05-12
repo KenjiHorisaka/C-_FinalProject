@@ -58,6 +58,7 @@ public:
         {
             Vector<T> result(vec.size());
             //set result to zero first !!!!!!!!!!!!!
+			// The code below initializes the vector with 0s
 			for (int r=0; r<row; r++){result.get(r)=0;}
             for (int r=0; r<row;r++)
                 for (int c=0; c<col;c++)
