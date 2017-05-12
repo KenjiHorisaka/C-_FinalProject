@@ -53,6 +53,7 @@ class Heat2D
 				int jump=pow(m,kd);
 				if(Ind[{i,kd}]==0){ // no left neihbor
 					D[{i,(i+jump)}]=1;
+					D[{i+jump,i}] = 1;
 				}
 				else {if(Ind[{i,kd}]==(m-1)){ //no right neihbor
 				D[{i,(i-jump)}]=1;}

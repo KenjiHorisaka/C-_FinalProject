@@ -46,7 +46,12 @@ int cg(Matrix<T> &A, Vector<T> &b, Vector<T> &x, T &tol, T &maxiter){// I maxite
 	[a dot b]=a'*b;
 	*/
 	
-	for (int i=0;i<maxiter-1;i++){
+	for (int i=0;i<maxiter;i++){
+		
+		std::cout<<"  "<<std::endl;
+		std::cout<<"Iteration: "<<i<<std::endl;
+		std::cout<<"  "<<std::endl;
+		
 		std::cout<<"P al inicio"<<std::endl;
 		p.print();
 		std::cout<<"A al inicio"<<std::endl;
@@ -57,7 +62,7 @@ int cg(Matrix<T> &A, Vector<T> &b, Vector<T> &x, T &tol, T &maxiter){// I maxite
 			Ap.print();
 			
 		double alpha= r_old/ dot(Ap,p);//This is correct
-			
+			std::cout<<"Dot AP*p: "<<dot(Ap,p)<<std::endl;
 			std::cout<<"alpha:"<<alpha<<"    "<<dot(Ap,p)<<std::endl;
 			
 		x=x+alpha*p;//This is correct
@@ -101,16 +106,16 @@ int main()
 	Vector<double> V2(3);
 	Matrix<double> M(3,3);
 	M[{0,0}]=1;
-	M[{0,1}]=2;
-	M[{0,2}]=3;
-	M[{1,0}]=4;
-	M[{1,1}]=5;
-	M[{1,2}]=6;
-	M[{2,0}]=7;
-	M[{2,1}]=8;
-	M[{2,2}]=9;
+	M[{0,1}]=-0.5;
+	M[{0,2}]=0;
+	M[{1,0}]=-0.5;
+	M[{1,1}]=1;
+	M[{1,2}]=-0.5;
+	M[{2,0}]=0;
+	M[{2,1}]=-0.5;
+	M[{2,2}]=1;
 	double maxiter=5;
-	double tol=0.0000001;
+	double tol=0.02;
 	Vector<double> p({-13.,-30.,-47.});
 
 /*	M.print();

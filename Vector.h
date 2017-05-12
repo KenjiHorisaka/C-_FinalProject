@@ -23,7 +23,7 @@ private:
 public:
     //General parameters
     int print_space = 5;
-    int decimal_space = 12;
+    int decimal_space = 15;
 
     //Default constructor that sets the length to zero
     Vector(): n(0), data(nullptr) {}
@@ -76,7 +76,7 @@ public:
     {
         if (this != &other)
         {
-            std::swap(this->data, other.data);
+            std::swap(this->data, other.data);//swap means 
             std::swap(this->n, other.n);
             other.n = 0;
             delete[] other.data;

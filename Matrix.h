@@ -24,7 +24,7 @@ class Matrix
 public:
     //General parameters
     int print_space = 5;
-    int decimal_space = 12;
+    int decimal_space = 15;
 
     //Default Constructor
     Matrix(): row(0), col(0){}
@@ -58,6 +58,7 @@ public:
         {
             Vector<T> result(vec.size());
             //set result to zero first !!!!!!!!!!!!!
+			for (int r=0; r<row; r++){result.get(r)=0;}
             for (int r=0; r<row;r++)
                 for (int c=0; c<col;c++)
                     result.get(r)+=data[{r,c}]*vec.get(c);
@@ -65,7 +66,7 @@ public:
             return result;
         }
     }
-
+//valgrind
     //Help to get private attributes in out of scope functions
     inline const std::size_t get_row() const { return row; }
     inline const std::size_t get_col() const { return col; }
