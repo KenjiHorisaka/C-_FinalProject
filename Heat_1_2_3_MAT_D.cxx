@@ -112,11 +112,11 @@ int main()
 //Heat2D(0.3125,3,0.1).exact(0.5).print();
 //Heat<1>(0.3125,3,0.1).printM();
 std::cout<<"Template solution"<<std::endl;
-Heat<1>(0.3125,3,0.1).printM();
+//Heat<1>(0.3125,3,0.1).printM();
 //Heat<1>(0.3125,3,0.1).exact(2).print();
-//Heat<3>(0.3125,3,0.1).printM();
+Heat<4>(0.3125,3,0.1).printM();
 std::cout<<"SOLVEE "<<std::endl;
-Heat<1>(0.3125,3,0.1).solve(.5).print();
+//Heat<1>(0.3125,3,0.1).solve(.5).print();
 return 0;
 
 //transpose vector

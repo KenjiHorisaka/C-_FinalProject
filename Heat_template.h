@@ -124,7 +124,7 @@ class Heat
 				//u_x0.print(); 
 				//std::cout<<"res"<<std::endl;
 				//result.print();
-				//cg(M,u_x0,result,tol,maxiter);
+				cg(M,u_x0,result,tol,maxiter);
 						std::cout << typeid(M).name() << std::endl;
 		std::cout << typeid(maxiter).name() << std::endl;
 		std::cout << typeid(result).name() << std::endl;
