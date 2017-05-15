@@ -93,21 +93,82 @@ class Heat2D
         for (int r=0; r<row;r++)
             for (int c=0; c<col;c++)
                 M[{r,c}]=I[{r,c}]-(alpha*dt/(dx*dx))*D[{r,c}];
-	}
+	}//end constructor
 
     Vector<double> exact(double t) const
     {
-        //double dx = 1/((double)m+1);
-
-        /*Replace this line with a for loop to fill the array*/
-        std::initializer_list<double> arr {0.25,0.25,0.25,0.5,0.5,0.5,0.75,0.75,0.75};
-
-        Vector<double> u_x(arr);
-        Vector<double> result(std::pow(m,k));
-        result=std::exp(-n*std::pow(M_PI,2)*alpha*t)*u_x;
+        double dx = 1/((double)m+1);
+		// Initialize vector of initial conditions and assign 1 to entries.
+		Vector<double> u_x0(std::pow(m,k+1));
+		for(int i=0; i<u_x0.size(); i++){
+			u_x0.get(i)=1;
+		}//end for i
+			
+        // Create vector of inditial conditions with PI(Sin(pi*xk))
+		for(int i=0; i<u_x0.size(); i++){
+			for(int kd=0; kd<=k; kd++){
+				u_x0.get(i)=u_x0.get(i)*std::sin(M_PI*(std::fmod(std::floor(i/std::pow(m,kd)),m)+1)*dx);
+			//std::cout<<std::fmod(std::floor(i/std::pow(m,kd)),m)*dx<<"     "<<dx<<std::endl;
+			}//end for kd
+		}//end for i
+		
+		u_x0.print();
+		
+        Vector<double> result(u_x0.size());
+        result=std::exp(-n*std::pow(M_PI,2)*alpha*t)*u_x0;
         return result;
-    }
+    }//end exact
 
+	Vector<double> solve(double t_end) const
+	{
+        double dx = 1/((double)m+1);
+		// Initialize vector of initial conditions and assign 1 to entries.
+		Vector<double> u_x0(std::pow(m,k+1));
+		
+		for(int i=0; i<u_x0.size(); i++){
+			u_x0.get(i)=1;}
+		
+		// Create vector of inditial conditions with PI(Sin(pi*xk))
+		for(int i=0; i<u_x0.size(); i++){
+			for(int kd=0; kd<=k; kd++){
+				u_x0.get(i)=u_x0.get(i)*std::sin(M_PI*(std::fmod(std::floor(i/std::pow(m,kd)),m)+1)*dx);
+			//std::cout<<std::fmod(std::floor(i/std::pow(m,kd)),m)*dx<<"     "<<dx<<std::endl;
+			}//end for kd
+		}//end for i
+		
+		
+		Vector<double> result=u_x0;
+		
+		
+		double l=t_end/dt;
+		double maxiter=10;
+		double tol=0.01;
+
+		
+		
+		//cg(M,u_x0,result,tol,maxiter);
+		
+		for (int i=0; i<l; i++){
+			if (i==0){
+				//std::cout<<"u_x0"<<std::endl;
+				//u_x0.print(); 
+				//std::cout<<"res"<<std::endl;
+				//result.print();
+				//this -> template cg <int>(M,u_x0,result,tol,maxiter);
+				
+				//cg(M,u_x0,result,tol,maxiter);
+			}
+			else{
+				Vector<double> b=result;
+				//cg(M,b,result,tol,maxiter);
+				//this -> template cg <int>(M,b,result,tol,maxiter);
+				//cg(M,b,result,tol,maxiter);
+			}
+		}
+		return result;
+		result.print();//is this line needed?
+	}//end solve
+	
     void printM()
     {
         std::cout<<"Matrix M: "<<std::endl;

@@ -51,17 +51,17 @@ class Heat
 				else{
 					D[{i,(i-jump)}]=1.0;
 					D[{i,(i+jump)}]=1.0;
-					}
-				}
-			}
-		};
+					}//end else
+				}//end else
+			}//end for kd
+		};//end for i
 
 
         //Initialize M // USE ITERATOR OF MAP
         for (int r=0; r<row;r++)
             for (int c=0; c<col;c++)
                 M[{r,c}]=I[{r,c}]-(alpha*dt/(dx*dx))*D[{r,c}];
-	}
+	}//end constructor
 
     Vector<double> exact(double t) const
     {
@@ -70,95 +70,80 @@ class Heat
 		Vector<double> u_x0(std::pow(m,k+1));
 		for(int i=0; i<u_x0.size(); i++){
 			u_x0.get(i)=1;}
-		// Create vector of inditial conditions with PI(Sin(pi*xk))
-		for(int i=0; i<u_x0.size(); i++){
-			for(int kd=0; kd<=k; kd++){
-				u_x0.get(i)=u_x0.get(i)*std::sin(M_PI*(std::fmod(std::floor(i/std::pow(m,kd)),m)+1)*dx);
-			//std::cout<<std::fmod(std::floor(i/std::pow(m,kd)),m)*dx<<"     "<<dx<<std::endl;
-			}
-		}
+			// Create vector of inditial conditions with PI(Sin(pi*xk))
+			for(int i=0; i<u_x0.size(); i++){
+				for(int kd=0; kd<=k; kd++){
+					u_x0.get(i)=u_x0.get(i)*std::sin(M_PI*(std::fmod(std::floor(i/std::pow(m,kd)),m)+1)*dx);
+			}//end for kd
+		}//end for i
 		
 		u_x0.print();
 		
         Vector<double> result(u_x0.size());
         result=std::exp(-n*std::pow(M_PI,2)*alpha*t)*u_x0;
         return result;
-    }
+    }//end exact
 
 	Vector<double> solve(double t_end) const
 	{
         double dx = 1/((double)m+1);
+		
 		// Initialize vector of initial conditions and assign 1 to entries.
 		Vector<double> u_x0(std::pow(m,k+1));
 		
 		for(int i=0; i<u_x0.size(); i++){
 			u_x0.get(i)=1;}
+			
 		// Create vector of inditial conditions with PI(Sin(pi*xk))
-		
 		for(int i=0; i<u_x0.size(); i++){
 			for(int kd=0; kd<=k; kd++){
 				u_x0.get(i)=u_x0.get(i)*std::sin(M_PI*(std::fmod(std::floor(i/std::pow(m,kd)),m)+1)*dx);
-			//std::cout<<std::fmod(std::floor(i/std::pow(m,kd)),m)*dx<<"     "<<dx<<std::endl;
-			}
-		}
+			}//end for kd
+		}//end for i
 		
 		
 		Vector<double> result=u_x0;
-		
-		
+				
 		double l=t_end/dt;
 		double maxiter=10;
-		double tol=0.01;
+		double tol=0.01;// Should this parameter be declared here or should it be passed by the user???
 
-		std::cout << typeid(M).name() << std::endl;
-		std::cout << typeid(maxiter).name() << std::endl;
-		std::cout << typeid(result).name() << std::endl;
-		std::cout << typeid(u_x0).name() << std::endl;
-		std::cout << typeid(tol).name() << std::endl;
+		
 		
 		//cg(M,u_x0,result,tol,maxiter);
 		
 		for (int i=0; i<l; i++){
 			if (i==0){
-				//std::cout<<"u_x0"<<std::endl;
-				//u_x0.print(); 
-				//std::cout<<"res"<<std::endl;
-				//result.print();
-				//cg(M,u_x0,result,tol,maxiter);
-						std::cout << typeid(M).name() << std::endl;
-		std::cout << typeid(maxiter).name() << std::endl;
-		std::cout << typeid(result).name() << std::endl;
-		std::cout << typeid(u_x0).name() << std::endl;
-		std::cout << typeid(tol).name() << std::endl;
+				//Calling to the cg function (Conjugate Gradient)
+				cg(M,u_x0,result,tol,maxiter);
 			}
 			else{
 				Vector<double> b=result;
-						std::cout << typeid(M).name() << std::endl;
-		std::cout << typeid(maxiter).name() << std::endl;
-		std::cout << typeid(result).name() << std::endl;
-		std::cout << typeid(b).name() << std::endl;
-		std::cout << typeid(tol).name() << std::endl;
-				//cg(M,b,result,tol,maxiter);
-		
-			}
-		}
+				//Calling to the cg function (Conjugate Gradient)
+				cg(M,b,result,tol,maxiter);
+			}//end conditional i for
+		}//end for i
+		result.print();//is this line needed?
 		return result;
-		result.print();
-	}
+		
+	}//end solve
 
 
     void printM()
     {
         std::cout<<"Matrix M: "<<std::endl;
         M.print();
-    }
-
+    }//end printM
+	
 	private:
+	//public:
 		double alpha;   //thermal diffusivity
-		int m;          //discretization nodes per dimenesion k
+		int m;          //discretization nodes per dimension k
 		double dt;      // timestep
         int k = n-1;	//dimension
-		Matrix<double> M; 
-};
+		mutable Matrix<double> M; //Discretization Matrix
+		//Matrix<double> M; //This is the previous line
+		
+};//end class Heat
 
-#endif // 
+#endif
