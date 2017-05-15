@@ -5,7 +5,7 @@
  * \file Heat2D
  *
  *
- * \author Jorge
+ * \author Jorge, Ronald, Kenji
  *
  */
 
@@ -69,18 +69,22 @@ class Heat
 		// Initialize vector of initial conditions and assign 1 to entries.
 		Vector<double> u_x0(std::pow(m,k+1));
 		for(int i=0; i<u_x0.size(); i++){
-			u_x0.get(i)=1;}
-			// Create vector of inditial conditions with PI(Sin(pi*xk))
-			for(int i=0; i<u_x0.size(); i++){
-				for(int kd=0; kd<=k; kd++){
-					u_x0.get(i)=u_x0.get(i)*std::sin(M_PI*(std::fmod(std::floor(i/std::pow(m,kd)),m)+1)*dx);
+			u_x0.get(i)=1;
+		}//end for i
+		
+		// Create vector of inditial conditions with PI(Sin(pi*xk))
+		for(int i=0; i<u_x0.size(); i++){
+			for(int kd=0; kd<=k; kd++){
+				u_x0.get(i)=u_x0.get(i)*std::sin(M_PI*(std::fmod(std::floor(i/std::pow(m,kd)),m)+1)*dx);
 			}//end for kd
 		}//end for i
 		
-		u_x0.print();
+		//u_x0.print();
 		
         Vector<double> result(u_x0.size());
         result=std::exp(-n*std::pow(M_PI,2)*alpha*t)*u_x0;
+		
+		//u_x0.print();
         return result;
     }//end exact
 
@@ -92,7 +96,8 @@ class Heat
 		Vector<double> u_x0(std::pow(m,k+1));
 		
 		for(int i=0; i<u_x0.size(); i++){
-			u_x0.get(i)=1;}
+			u_x0.get(i)=1;
+		}//end for i
 			
 		// Create vector of inditial conditions with PI(Sin(pi*xk))
 		for(int i=0; i<u_x0.size(); i++){
@@ -105,25 +110,28 @@ class Heat
 		Vector<double> result=u_x0;
 				
 		double l=t_end/dt;
-		double maxiter=10;
-		double tol=0.01;// Should this parameter be declared here or should it be passed by the user???
+		double maxiter=30;
+		double tol=0.000001;// Should this parameter be declared here or should it be passed by the user???
 
-		
+		std::cout<<"T= "<<dt*l<<std::endl;
 		
 		//cg(M,u_x0,result,tol,maxiter);
 		
-		for (int i=0; i<l; i++){
+		for (int i=0; i<=l; i++){
 			if (i==0){
 				//Calling to the cg function (Conjugate Gradient)
+				//std::cout<<cg(M,u_x0,result,tol,maxiter)<<std::endl;
 				cg(M,u_x0,result,tol,maxiter);
-			}
+			}//end if
 			else{
 				Vector<double> b=result;
 				//Calling to the cg function (Conjugate Gradient)
+				//std::cout<<cg(M,b,result,tol,maxiter)<<std::endl;
 				cg(M,b,result,tol,maxiter);
-			}//end conditional i for
+			}//end else
 		}//end for i
-		result.print();//is this line needed?
+	
+		//u_x0.print();
 		return result;
 		
 	}//end solve

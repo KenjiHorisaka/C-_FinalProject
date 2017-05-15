@@ -12,7 +12,7 @@
 #include <iostream>
 #include <algorithm>
 #include <cmath>
-
+#include "cg.h"
 #include "Vector.h"
 #include "Matrix.h"
 
@@ -82,12 +82,10 @@ class Heat2D
 				else{
 					D[{i,(i-jump)}]=1;
 					D[{i,(i+jump)}]=1;
-					}
-				}
-			}
-		};
-
-
+					}//end else
+				}//end else
+			}//end for kd
+		};//end for i
 
         //Initialize M // USE ITERATOR OF MAP
         for (int r=0; r<row;r++)
@@ -108,7 +106,6 @@ class Heat2D
 		for(int i=0; i<u_x0.size(); i++){
 			for(int kd=0; kd<=k; kd++){
 				u_x0.get(i)=u_x0.get(i)*std::sin(M_PI*(std::fmod(std::floor(i/std::pow(m,kd)),m)+1)*dx);
-			//std::cout<<std::fmod(std::floor(i/std::pow(m,kd)),m)*dx<<"     "<<dx<<std::endl;
 			}//end for kd
 		}//end for i
 		
@@ -132,7 +129,6 @@ class Heat2D
 		for(int i=0; i<u_x0.size(); i++){
 			for(int kd=0; kd<=k; kd++){
 				u_x0.get(i)=u_x0.get(i)*std::sin(M_PI*(std::fmod(std::floor(i/std::pow(m,kd)),m)+1)*dx);
-			//std::cout<<std::fmod(std::floor(i/std::pow(m,kd)),m)*dx<<"     "<<dx<<std::endl;
 			}//end for kd
 		}//end for i
 		
@@ -142,7 +138,7 @@ class Heat2D
 		
 		double l=t_end/dt;
 		double maxiter=10;
-		double tol=0.01;
+		double tol=0.01;// Should this parameter be declared here or should it be passed by the user???
 
 		
 		
@@ -150,23 +146,18 @@ class Heat2D
 		
 		for (int i=0; i<l; i++){
 			if (i==0){
-				//std::cout<<"u_x0"<<std::endl;
-				//u_x0.print(); 
-				//std::cout<<"res"<<std::endl;
-				//result.print();
-				//this -> template cg <int>(M,u_x0,result,tol,maxiter);
-				
-				//cg(M,u_x0,result,tol,maxiter);
-			}
+				//Calling to the cg function (Cojugate Gradient)
+				cg(M,u_x0,result,tol,maxiter);
+			}//end if
 			else{
 				Vector<double> b=result;
-				//cg(M,b,result,tol,maxiter);
-				//this -> template cg <int>(M,b,result,tol,maxiter);
-				//cg(M,b,result,tol,maxiter);
-			}
-		}
-		return result;
+				//Calling to the cg function (Conjugate Gradient)
+				cg(M,b,result,tol,maxiter);
+			}//end else
+		}//end for i
 		result.print();//is this line needed?
+		return result;
+		
 	}//end solve
 	
     void printM()
@@ -181,7 +172,7 @@ class Heat2D
 		double dt;      // timestep
 		int n=2;
         int k = n-1;
-		Matrix<double> M;
+		mutable Matrix<double> M;
 };
 
 #endif // HEAT2D_H_INCLUDED
