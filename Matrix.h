@@ -35,15 +35,24 @@ public:
 
     T& operator[](std::array<int,2> arr)
     {
-        if (arr[0] >= row || arr[1] >= col )
-            std::cout << "Element out of size!!" <<std::endl;
+        // if (arr[0] >= row || arr[1] >= col ){
+            // std::cout << "Element out of size!![1. In matrix]" <<std::endl;
+		// }//end if
+		
+		if (arr[0] >= row){
+            std::cout << "Element out of size!![Row]" <<std::endl;
+		}//end if
+		if (arr[1] >= col ){
+            std::cout << "Element out of size!![Col]" <<std::endl;
+		}//end if
+			
         return data[{arr[0],arr[1]}];
     }
 
     T operator[](std::array<int,2> arr) const
     {
         if (arr[0] >= row || arr[1] >= col )
-            std::cout << "Element out of size!!" <<std::endl;
+            std::cout << "Element out of size!![2. In matrix]" <<std::endl;
         return data[{arr[0],arr[1]}];
     }
 

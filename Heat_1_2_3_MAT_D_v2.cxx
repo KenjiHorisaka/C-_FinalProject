@@ -67,13 +67,13 @@ int main()
 
 std::cout<<"  "<<std::endl;
 std::cout<<"Template solution for 2D"<<std::endl;
-Heat<2>(0.3125,3,0.1).printM();
+Heat<3>(0.3125,5,0.1).printM();
 std::cout<<"  "<<std::endl;
 std::cout<<"THIS IS THE EXACT SOLUTION FOR N "<<std::endl;
-Heat<2>(0.3125,3,0.1).exact(0.5).print();
+//Heat<2>(0.3125,5,0.1).exact(0.5).print();
 std::cout<<"  "<<std::endl;
 std::cout<<"THIS IS THE SOLVE FOR N "<<std::endl;
-Heat<2>(0.3125,3,0.001).solve(0.5).print();
+//Heat<2>(0.3125,5,0.001).solve(0.5).print();
 std::cout<<"  "<<std::endl;
 
 /* ********************** 3D Template Solution************* */

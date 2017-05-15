@@ -75,7 +75,7 @@ class Heat
 		// Create vector of inditial conditions with PI(Sin(pi*xk))
 		for(int i=0; i<u_x0.size(); i++){
 			for(int kd=0; kd<=k; kd++){
-				u_x0.get(i)=u_x0.get(i)*std::sin(M_PI*(std::fmod(std::floor(i/std::pow(m,kd)),m)+1)*dx);
+				u_x0.get(i)=u_x0.get(i)*std::sin(M_PI*(std::fmod(std::floor(i/std::pow(m,kd)),m)+1)*dx);//this +1 is to make the product of the first node not 0
 			}//end for kd
 		}//end for i
 		
@@ -117,7 +117,7 @@ class Heat
 		
 		//cg(M,u_x0,result,tol,maxiter);
 		
-		for (int i=0; i<=l; i++){
+		for (int i=0; i<l; i++){
 			if (i==0){
 				//Calling to the cg function (Conjugate Gradient)
 				//std::cout<<cg(M,u_x0,result,tol,maxiter)<<std::endl;
