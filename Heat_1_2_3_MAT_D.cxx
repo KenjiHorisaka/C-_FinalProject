@@ -115,30 +115,30 @@ int main()
 // std::cout<<"2D SOLVE "<<std::endl;
 // Heat2D(0.3125,3,0.1).solve(0.5).print();
 //Heat<1>(0.3125,3,0.1).printM();
+
 /* ********************** 1D Template Solution************* */
+// std::cout<<"  "<<std::endl;
 // std::cout<<"Template solution for 1D"<<std::endl;
 // Heat<1>(0.3125,3,0.1).printM();
 // Heat<1>(0.3125,3,0.1).exact(2).print();
 //Heat<3>(0.3125,3,0.1).printM();
 // std::cout<<"THIS IS THE SOLVE FOR N "<<std::endl;
 // Heat<1>(0.3125,3,0.1).solve(0.5).print();
+// std::cout<<"  "<<std::endl;
+
 /* ********************** 2D Template Solution************* */
+
 std::cout<<"  "<<std::endl;
 std::cout<<"Template solution for 2D"<<std::endl;
 Heat<2>(0.3125,3,0.1).printM();
 std::cout<<"  "<<std::endl;
 Heat<2>(0.3125,3,0.1).exact(2).print();
 std::cout<<"  "<<std::endl;
-//Heat<3>(0.3125,3,0.1).printM();
 std::cout<<"THIS IS THE SOLVE FOR N "<<std::endl;
 Heat<2>(0.3125,3,0.1).solve(0.5).print();
 std::cout<<"  "<<std::endl;
-std::cout<<"Template solution"<<std::endl;
-//Heat<1>(0.3125,3,0.1).printM();
-//Heat<1>(0.3125,3,0.1).exact(2).print();
-Heat<4>(0.3125,3,0.1).printM();
-std::cout<<"SOLVEE "<<std::endl;
-//Heat<1>(0.3125,3,0.1).solve(.5).print();
+
+// Heat<3>(0.3125,3,0.1).printM();
 
 return 0;
 
