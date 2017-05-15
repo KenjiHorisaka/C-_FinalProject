@@ -114,21 +114,8 @@ class Heat
 		
 		for (int i=0; i<l; i++){
 			if (i==0){
-<<<<<<< HEAD
 				//Calling to the cg function (Conjugate Gradient)
 				cg(M,u_x0,result,tol,maxiter);
-=======
-				//std::cout<<"u_x0"<<std::endl;
-				//u_x0.print(); 
-				//std::cout<<"res"<<std::endl;
-				//result.print();
-				cg(M,u_x0,result,tol,maxiter);
-						std::cout << typeid(M).name() << std::endl;
-		std::cout << typeid(maxiter).name() << std::endl;
-		std::cout << typeid(result).name() << std::endl;
-		std::cout << typeid(u_x0).name() << std::endl;
-		std::cout << typeid(tol).name() << std::endl;
->>>>>>> origin/master
 			}
 			else{
 				Vector<double> b=result;
