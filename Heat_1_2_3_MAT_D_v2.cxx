@@ -9,7 +9,7 @@
 #include <algorithm>
 #include <cmath>
 #include <memory>
-
+#include <time.h>
 #include "Vector.h"
 #include "Matrix.h"
 #include "Heat1D.h"
@@ -67,17 +67,24 @@ int main()
 
 std::cout<<"  "<<std::endl;
 std::cout<<"Template solution for 2D"<<std::endl;
-Heat<2>(0.3125,3,0.001).printM();
+Heat<2>(0.3125,3,0.1).printM();
 std::cout<<"  "<<std::endl;
+clock_t t1,t2;
+t1=clock();
 std::cout<<"THIS IS THE EXACT SOLUTION FOR N "<<std::endl;
-Vector<double> exact = Heat<1>(0.3125,99,0.001).exact(0.5);
+Vector<double> exact = Heat<2>(0.3125,99,0.001).exact(0.5);
 std::cout<<"  "<<std::endl;
 std::cout<<"THIS IS THE SOLVE FOR N "<<std::endl;
-Vector<double> solve = Heat<1>(0.3125,99,0.001).solve(0.5);
+Vector<double> solve = Heat<2>(0.3125,99,0.001).solve(0.5);
 std::cout<<"  "<<std::endl;
 std::cout<<"ERROR"<<std::endl;
 Vector <double> error=exact-solve;
 error.print_sum();
+t2=clock();
+std::cout<<"  "<<std::endl;
+std::cout<<"Elapsed time"<<std::endl;
+double t_e =  ((double)t2-(double)t1)/CLOCKS_PER_SEC;
+std::cout<<"t[sec]= "<<t_e<<std::endl;
 /* ********************** 3D Template Solution************* */
 
 // std::cout<<"  "<<std::endl;

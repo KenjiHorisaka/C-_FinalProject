@@ -126,7 +126,7 @@ class Heat
 		double maxiter=30;
 		double tol=0.00000001;// Should this parameter be declared here or should it be passed by the user???
 
-		std::cout<<"T= "<<dt*l<<std::endl;
+		//std::cout<<"T= "<<dt*l<<std::endl;
 		
 		//cg(M,u_x0,result,tol,maxiter);
 		
