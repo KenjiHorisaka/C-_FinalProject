@@ -30,9 +30,9 @@ class Heat
 	    int col = std::pow(m,k+1);
         double dx = 1/((double)m+1);
 		
-		Matrix<double> I(row,col);
-			for (int r=0; r<I.get_row();r++)
-				I[{r,r}]=1;
+		// Matrix<double> I(row,col);
+		//	for (int r=0; r<I.get_row();r++){
+		//		I[{r,r}]=1;}
 
 		//Matrix D
 		Matrix<double> D(row,col);
@@ -57,10 +57,23 @@ class Heat
 		};//end for i
 
 
-        //Initialize M // USE ITERATOR OF MAP
-        for (int r=0; r<row;r++)
-            for (int c=0; c<col;c++)
-                M[{r,c}]=I[{r,c}]-(alpha*dt/(dx*dx))*D[{r,c}];
+        //Initialize M // 
+//        for (int r=0; r<row;r++)
+//            for (int c=0; c<col;c++)
+//				if(r==c){
+//                M[{r,c}]=1-(alpha*dt/(dx*dx))*D[{r,c}];}
+//				else{M[{r,c}]=-(alpha*dt/(dx*dx))*D[{r,c}];}
+
+		// Initialize matrix M using map iterator. BUT! had to make public data from Matrix class.
+		// The benefit is that it makes the program much faster
+		for (auto it=D.data.begin();it!=D.data.end();it++){
+			auto ind=it->first;
+			if(ind[0]==ind[1]){
+				M[ind]=1-(alpha*dt/(dx*dx))*D[ind];
+			}
+			else{M[ind]=-(alpha*dt/(dx*dx))*D[ind];}
+		}
+
 	}//end constructor
 
     Vector<double> exact(double t) const
@@ -111,7 +124,7 @@ class Heat
 				
 		double l=t_end/dt;
 		double maxiter=30;
-		double tol=0.000001;// Should this parameter be declared here or should it be passed by the user???
+		double tol=0.00000001;// Should this parameter be declared here or should it be passed by the user???
 
 		std::cout<<"T= "<<dt*l<<std::endl;
 		

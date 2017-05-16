@@ -25,21 +25,23 @@
 int main()
 {
 	/**************** COMMENTED THIS START ********************** */
-	// std::initializer_list<double> list1{1, 2, 3};
+	 std::initializer_list<double> list1{1, 2, 3};
 	// std::initializer_list<double> list2{3,3,3};
 	// double s = 3;
-	// Vector<double> V(list1);
+	 Vector<double> V(list1);
 	// Vector<double> V2(3);
-	// Matrix<double> M(3,3);
-	// M[{0,0}]=1;
-	// M[{0,1}]=-0.5;
-	// M[{0,2}]=0;
-	// M[{1,0}]=-0.5;
-	// M[{1,1}]=1;
-	// M[{1,2}]=-0.5;
-	// M[{2,0}]=0;
-	// M[{2,1}]=-0.5;
-	// M[{2,2}]=1;
+	 Matrix<double> M(3,3);
+	 M[{0,0}]=1;
+	 M[{0,1}]=-0.5;
+	 M[{0,2}]=0;
+	 M[{1,0}]=-0.5;
+	 M[{1,1}]=1;
+	 M[{1,2}]=-0.5;
+	 M[{2,0}]=0;
+	 M[{2,1}]=-0.5;
+	 M[{2,2}]=1;
+	std::cout<<" "<<std::endl;
+	M.matvec(V).print();
 	
 	/**************** COMMENTED THIS END ********************** */
 	// M[{0,1}]=2;
@@ -122,32 +124,32 @@ int main()
 //Heat<1>(0.3125,3,0.1).printM();
 
 /* ********************** Heat1D Solution ************* */
-std::cout<<"  "<<std::endl;
-std::cout<<"1D solution"<<std::endl;
-Heat1D(0.3125,3,0.1).printM();
-std::cout<<"  "<<std::endl;
-
-std::cout<<"1D Exact"<<std::endl;
-Heat1D(0.3125,3,0.1).exact(0.5).print();
-std::cout<<"  "<<std::endl
-
-std::cout<<"1D Solve "<<std::endl;
-Heat2D(0.3125,3,0.1).solve(0.5).print();
-std::cout<<"  "<<std::endl
-
-/* ********************** Heat1D Solution ************* */
-std::cout<<"  "<<std::endl;
-std::cout<<"1D solution"<<std::endl;
-Heat1D(0.3125,3,0.1).printM();
-std::cout<<"  "<<std::endl;
-
-std::cout<<"1D Exact"<<std::endl;
-Heat1D(0.3125,3,0.1).exact(0.5).print();
-std::cout<<"  "<<std::endl
-
-std::cout<<"1D Solve "<<std::endl;
-Heat2D(0.3125,3,0.1).solve(0.5).print();
-std::cout<<"  "<<std::endl
+//std::cout<<"  "<<std::endl;
+//std::cout<<"1D solution"<<std::endl;
+//Heat1D(0.3125,3,0.1).printM();
+//std::cout<<"  "<<std::endl;
+//
+//std::cout<<"1D Exact"<<std::endl;
+//Heat1D(0.3125,3,0.1).exact(0.5).print();
+//std::cout<<"  "<<std::endl
+//
+//std::cout<<"1D Solve "<<std::endl;
+//Heat2D(0.3125,3,0.1).solve(0.5).print();
+//std::cout<<"  "<<std::endl
+//
+///* ********************** Heat1D Solution ************* */
+//std::cout<<"  "<<std::endl;
+//std::cout<<"1D solution"<<std::endl;
+//Heat1D(0.3125,3,0.1).printM();
+//std::cout<<"  "<<std::endl;
+//
+//std::cout<<"1D Exact"<<std::endl;
+//Heat1D(0.3125,3,0.1).exact(0.5).print();
+//std::cout<<"  "<<std::endl
+//
+//std::cout<<"1D Solve "<<std::endl;
+//Heat2D(0.3125,3,0.1).solve(0.5).print();
+//std::cout<<"  "<<std::endl
 
 /* ********************** 1D Template Solution************* */
 
@@ -162,15 +164,15 @@ std::cout<<"  "<<std::endl
 
 /* ********************** 2D Template Solution************* */
 
-std::cout<<"  "<<std::endl;
-std::cout<<"Template solution for 2D"<<std::endl;
-Heat<2>(0.3125,3,0.1).printM();
-std::cout<<"  "<<std::endl;
-Heat<2>(0.3125,3,0.1).exact(2).print();
-std::cout<<"  "<<std::endl;
-std::cout<<"THIS IS THE SOLVE FOR N "<<std::endl;
-Heat<2>(0.3125,3,0.1).solve(0.5).print();
-std::cout<<"  "<<std::endl;
+//std::cout<<"  "<<std::endl;
+//std::cout<<"Template solution for 2D"<<std::endl;
+//Heat<2>(0.3125,3,0.1).printM();
+//std::cout<<"  "<<std::endl;
+//Heat<2>(0.3125,3,0.1).exact(2).print();
+//std::cout<<"  "<<std::endl;
+//std::cout<<"THIS IS THE SOLVE FOR N "<<std::endl;
+//Heat<2>(0.3125,3,0.1).solve(0.5).print();
+//std::cout<<"  "<<std::endl;
 
 /* ********************** 3D Template Solution************* */
 

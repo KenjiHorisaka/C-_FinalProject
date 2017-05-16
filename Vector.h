@@ -107,6 +107,11 @@ public:
          std::cout << "empty" << std::endl;
         }
     }
+	void print_sum(){
+		T result;
+		for (std::size_t i=0; i<n;i++){result+=data[i];};
+		std::cout<<result<<std::endl;
+	}
 };
 
 template<typename T, typename V>

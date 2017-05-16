@@ -68,13 +68,23 @@ public:
             Vector<T> result(vec.size());
             //set result to zero first !!!!!!!!!!!!!
 			// The code below initializes the vector with 0s
+//			for (int r=0; r<row; r++){result.get(r)=0;}
+//            for (int r=0; r<row;r++)
+//                for (int c=0; c<col;c++)
+//                    result.get(r)+=data[{r,c}]*vec.get(c);
+//					//result.print();
+//            return result;
+			
 			for (int r=0; r<row; r++){result.get(r)=0;}
-            for (int r=0; r<row;r++)
-                for (int c=0; c<col;c++)
-                    result.get(r)+=data[{r,c}]*vec.get(c);
+           
+			for (auto it=data.begin(); it!=data.end();it++){
+				auto ind=it->first;
+				auto dat=it->second;
+				result.get(ind[0])+=dat*vec.get(ind[1]);}
 					//result.print();
             return result;
-        }
+		
+		}
     }
 //valgrind
     //Help to get private attributes in out of scope functions
@@ -126,16 +136,17 @@ public:
         };
 		return Transp;
 	};
+	
+	
 
  //
   //Get data pointer (constant reference) Access data for functions
     inline const T& get(const int& i, const int& j) const { return data.at({i,j}); }
-
-private:
+	
+public:
  std::size_t row; // Removed const, otherwise copy assignment operator was implicitly deleted.
  std::size_t col;// Same here. 
-
-    std::map<std::array<int,2>,T> data;
+ std::map<std::array<int,2>,T> data;
 };
 
 
