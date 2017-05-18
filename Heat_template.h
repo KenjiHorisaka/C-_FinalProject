@@ -2,8 +2,10 @@
 #define HEAT_TEMPLATE_H_INCLUDED
 
 /*
- * \file Heat2D
- *
+ * \file Heat_template
+ * This file extends the class Heat to n dimensions. 
+ * The Heat class solves the heat equation in chosen dimension via two different methods: 
+ * exact and solve.
  *
  * \author Jorge, Ronald, Kenji
  *
@@ -18,36 +20,35 @@
 #include "Matrix.h"
 #include "cg.h"
 
+
+
 template<int n>
 class Heat
 	{
 	public:
-	//constructor
+	
+	//Constructor
 	Heat(double alpha, int m, double dt):alpha(alpha),m(m),dt(dt),M(std::pow(m,k+1),std::pow(m,k+1))
 	{
 	    //General characteristics:
 	    int row = std::pow(m,k+1);
 	    int col = std::pow(m,k+1);
         double dx = 1/((double)m+1);
-		
-		// Matrix<double> I(row,col);
-		//	for (int r=0; r<I.get_row();r++){
-		//		I[{r,r}]=1;}
 
 		//Matrix D
 		Matrix<double> D(row,col);
-		for (int i=0; i<row; i++){
+		for (int i=0; i<row; i++){ // iterate over all nodes of the system
 			D[{i,i}]=-2.0*(k+1);
-			for (int kd=0; kd<=k; kd++){
+			for (int kd=0; kd<=k; kd++){ // iterate over all dimensions
 				int jump=pow(m,kd);
-				if(fmod(floor(i/jump),m)==0){ //left wall
+				if(fmod(floor(i/jump),m)==0){ //left boundary in dimension kd
 					D[{i,(i+jump)}]=1.0;
 					D[{(i+jump),i}] =1.0;
-					}
-				else {if(fmod(floor((i+jump)/jump),m)==0){ //right wall
+					} // end if
+				else {if(fmod(floor((i+jump)/jump),m)==0){ //right boundary in dimension kd
 					D[{i,(i-jump)}]=1.0;
 					D[{(i-jump),i}]=1.0;
-					}
+					} // end if
 				else{
 					D[{i,(i-jump)}]=1.0;
 					D[{i,(i+jump)}]=1.0;
@@ -58,48 +59,48 @@ class Heat
 
 
         //Initialize M // 
-//        for (int r=0; r<row;r++)
-//            for (int c=0; c<col;c++)
-//				if(r==c){
-//                M[{r,c}]=1-(alpha*dt/(dx*dx))*D[{r,c}];}
-//				else{M[{r,c}]=-(alpha*dt/(dx*dx))*D[{r,c}];}
-
-		// Initialize matrix M using map iterator. BUT! had to make public data from Matrix class.
-		// The benefit is that it makes the program much faster
+		
 		for (auto it=D.data.begin();it!=D.data.end();it++){
 			auto ind=it->first;
 			if(ind[0]==ind[1]){
-				M[ind]=1-(alpha*dt/(dx*dx))*D[ind];
-			}
+				M[ind]=1-(alpha*dt/(dx*dx))*D[ind]; // Consider the identity matrix for diagonal calculations
+			} //end if
 			else{M[ind]=-(alpha*dt/(dx*dx))*D[ind];}
-		}
-
+		} // end else
+		
 	}//end constructor
+
+//////////////////////////////EXACT METHOD/////////////////////////////////
+//Calculate the exact solution to the given conditions of the heat equation
 
     Vector<double> exact(double t) const
     {
-        double dx = 1/((double)m+1);
+        double dx = 1/((double)m+1); 
+		
 		// Initialize vector of initial conditions and assign 1 to entries.
 		Vector<double> u_x0(std::pow(m,k+1));
 		for(int i=0; i<u_x0.size(); i++){
 			u_x0.get(i)=1;
 		}//end for i
 		
-		// Create vector of inditial conditions with PI(Sin(pi*xk))
+		// Create vector of inditial conditions 
 		for(int i=0; i<u_x0.size(); i++){
 			for(int kd=0; kd<=k; kd++){
 				u_x0.get(i)=u_x0.get(i)*std::sin(M_PI*(std::fmod(std::floor(i/std::pow(m,kd)),m)+1)*dx);//this +1 is to make the product of the first node not 0
 			}//end for kd
 		}//end for i
-		
-		//u_x0.print();
-		
+				
+		//Initialize result vector
         Vector<double> result(u_x0.size());
-        result=std::exp(-n*std::pow(M_PI,2)*alpha*t)*u_x0;
 		
-		//u_x0.print();
+		//Calculate the exact solution
+        result=std::exp(-n*std::pow(M_PI,2)*alpha*t)*u_x0;
+				
         return result;
     }//end exact
+
+///////////////////////////////SOLVE METHOD//////////////////////////////////
+//The solve method calculalates the numerical solution for the heat equation.
 
 	Vector<double> solve(double t_end) const
 	{
@@ -119,51 +120,51 @@ class Heat
 			}//end for kd
 		}//end for i
 		
+		// Initialize result vector and assign the same values as the initial conditions as a
+		// first guess. 
 		
 		Vector<double> result=u_x0;
 				
-		double l=t_end/dt;
-		double maxiter=30;
-		double tol=0.00000001;// Should this parameter be declared here or should it be passed by the user???
+		// Define the parameters of the conjugate gradient method.
+		double l=t_end/dt; // l is the iterator of time upon which the C.G. method is going to be called.
+		double maxiter=50; // Maximum number of iterations of the C.G. Method
+		double tol=0.00000001;// Tolerance of the C.G. Method.
 
 		//std::cout<<"T= "<<dt*l<<std::endl;
 		
-		//cg(M,u_x0,result,tol,maxiter);
-		
+		// Start of the numerical solution.
 		for (int i=0; i<l; i++){
 			if (i==0){
+				//On the first iteration b = initial conditions of the system.
 				//Calling to the cg function (Conjugate Gradient)
-				//std::cout<<cg(M,u_x0,result,tol,maxiter)<<std::endl;
 				cg(M,u_x0,result,tol,maxiter);
 			}//end if
 			else{
+				//On any other timestep b = the value of result of the previous time step.
 				Vector<double> b=result;
 				//Calling to the cg function (Conjugate Gradient)
-				//std::cout<<cg(M,b,result,tol,maxiter)<<std::endl;
 				cg(M,b,result,tol,maxiter);
 			}//end else
 		}//end for i
 	
-		//u_x0.print();
 		return result;
 		
 	}//end solve
 
-
+/////////////////// METHOD FOR PRINTING M MATRIX //////////////////////
     void printM()
     {
         std::cout<<"Matrix M: "<<std::endl;
         M.print();
     }//end printM
 	
+
 	private:
-	//public:
-		double alpha;   //thermal diffusivity
-		int m;          //discretization nodes per dimension k
-		double dt;      // timestep
-        int k = n-1;	//dimension
+		double alpha;   // Thermal diffusivity
+		int m;          // Discretization nodes per dimension k
+		double dt;      // Timestep
+        int k = n-1;	// Dimensions
 		mutable Matrix<double> M; //Discretization Matrix
-		//Matrix<double> M; //This is the previous line
 		
 };//end class Heat
 
