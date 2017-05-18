@@ -1,0 +1,392 @@
+/**
+ * \file Final_Project.cxx
+ 
+ *
+ *
+ * \author Ronald Cumbal, Jorge Fuchs, Kenji Yanez
+ *
+ *
+ *\Purpose: Solve the Heat Equation by means of the templated class Heat for 1, 2 and 3 dimensions
+ *
+ *\Version: 1.1 18/05/2017
+ *
+ **/
+
+#include "Heat_template.h"
+#include <time.h>
+#include <cmath>
+#include <iomanip>
+
+int main(){
+/* ********************** 1D Template Solution************* */
+	std::cout<<"  "<<std::endl;
+	std::cout<<"TEMPLATE SOLUTION FOR 1D"<<std::endl;
+	std::cout<<"  "<<std::endl;
+	std::cout<<"MATRIX M   m=3 dt=0.1"<<std::endl;
+	Heat<1>(0.3125,3,0.1).printM();
+	std::cout<<"  "<<std::endl;
+	clock_t t1,t2;
+	t1=clock();
+	std::cout<<"THIS IS THE EXACT SOLUTION FOR m=99 dt=0.001 tf=0.5 "<<std::endl;
+	Vector<double> exact = Heat<1>(0.3125,99,0.001).exact(0.5);
+	exact.print();
+	std::cout<<"  "<<std::endl;
+	std::cout<<"THIS IS THE NUMERICAL SOLUTION FOR m=99 dt=0.001 tf=0.5 "<<std::endl;
+	Vector<double> solve = Heat<1>(0.3125,99,0.001).solve(0.5);
+	solve.print();
+	std::cout<<"  "<<std::endl;
+	std::cout<<"MEAN ERROR OF SOLUTIONS"<<std::endl;
+	Vector <double> error=exact-solve;
+	error.print_mean();
+	t2=clock();
+	std::cout<<"  "<<std::endl;
+	std::cout<<"ELAPSED TIME"<<std::endl;
+	double t_e =  ((double)t2-(double)t1)/CLOCKS_PER_SEC;
+	std::cout<<t_e<<" sec"<<std::endl;
+/* ********************** 2D Template Solution************* */
+
+	std::cout<<"  "<<std::endl;
+	std::cout<<"TEMPLATE SOLUTION FOR 2D"<<std::endl;
+	std::cout<<"  "<<std::endl;
+	std::cout<<"MATRIX M   m=3 dt=0.1"<<std::endl;
+	Heat<2>(0.3125,3,0.1).printM();
+	std::cout<<"  "<<std::endl;
+	
+	t1=clock();
+	std::cout<<"THIS IS THE EXACT SOLUTION FOR m=99 dt=0.001 tf=0.5 "<<std::endl;
+	Vector<double> exact2 = Heat<2>(0.3125,99,0.001).exact(0.5);
+	//exact2.print();
+	std::cout<<"  "<<std::endl;
+	std::cout<<"THIS IS THE NUMERICAL SOLUTION FOR m=99 dt=0.001 tf=0.5 "<<std::endl;
+	Vector<double> solve2 = Heat<2>(0.3125,99,0.001).solve(0.5);
+	//solve2.print();
+	std::cout<<"  "<<std::endl;
+	std::cout<<"MEAN ERROR OF SOLUTIONS"<<std::endl;
+	Vector <double> error2=exact2-solve2;
+	error2.print_mean();
+	t2=clock();
+	std::cout<<"  "<<std::endl;
+	std::cout<<"ELAPSED TIME"<<std::endl;
+	t_e =  ((double)t2-(double)t1)/CLOCKS_PER_SEC;
+	std::cout<<t_e<<" sec"<<std::endl;
+
+/* ********************** 3D Template Solution************* */
+
+	std::cout<<"  "<<std::endl;
+	std::cout<<"TEMPLATE SOLUTION FOR 3D"<<std::endl;
+	std::cout<<"  "<<std::endl;
+	std::cout<<"MATRIX M   m=3 dt=0.1"<<std::endl;
+	Heat<3>(0.3125,3,0.1).printM();
+	std::cout<<"  "<<std::endl;
+
+	t1=clock();
+	std::cout<<"THIS IS THE EXACT SOLUTION FOR m=30 dt=0.001 tf=0.5 "<<std::endl;
+	Vector<double> exact3 = Heat<3>(0.3125,30,0.001).exact(0.5);
+	//exact3.print();
+	std::cout<<"  "<<std::endl;
+	std::cout<<"THIS IS THE NUMERICAL SOLUTION FOR m=30 dt=0.001 tf=0.5 "<<std::endl;
+	Vector<double> solve3 = Heat<3>(0.3125,30,0.001).solve(0.5);
+	//solve3.print();
+	std::cout<<"  "<<std::endl;
+	std::cout<<"MEAN ERROR OF SOLUTIONS"<<std::endl;
+	Vector <double> error3=exact3-solve3;
+	error.print_mean();
+	t2=clock();
+	std::cout<<"  "<<std::endl;
+	std::cout<<"ELAPSED TIME"<<std::endl;
+	t_e =  ((double)t2-(double)t1)/CLOCKS_PER_SEC;
+	std::cout<<t_e<<" sec"<<std::endl;
+
+
+return 0;
+}//end main=== Start Environment 
+PROJECT_NAME = Final-project
+CMAKE_SYSTEM = Darwin-15.5.0
+CMAKE_VERSION = 3.7.2
+CMAKE_CXX_COMPILER_ID = AppleClang
+CMAKE_CXX_COMPILER_VERSION = 7.3.0.7030031
+=== End Environment 
+=== Start of output from execution of binary Final_project
+  
+TEMPLATE SOLUTION FOR 1D
+  
+MATRIX M   m=3 dt=0.1
+Matrix M: 
+[  2.0 -0.5     ]
+[ -0.5  2.0 -0.5]
+[      -0.5  2.0]
+  
+THIS IS THE EXACT SOLUTION FOR m=99 dt=0.001 tf=0.5 
+[0.00672]
+[0.01343]
+[0.02013]
+[0.02681]
+[0.03347]
+[0.04009]
+[0.04667]
+[0.05320]
+[0.05968]
+[0.06611]
+[0.07246]
+[0.07875]
+[0.08496]
+[0.09109]
+[0.09712]
+[0.10306]
+[0.10890]
+[0.11463]
+[0.12024]
+[0.12574]
+[0.13112]
+[0.13636]
+[0.14147]
+[0.14644]
+[0.15127]
+[0.15595]
+[0.16047]
+[0.16483]
+[0.16903]
+[0.17307]
+[0.17693]
+[0.18062]
+[0.18413]
+[0.18746]
+[0.19061]
+[0.19357]
+[0.19633]
+[0.19890]
+[0.20128]
+[0.20346]
+[0.20543]
+[0.20721]
+[0.20877]
+[0.21014]
+[0.21129]
+[0.21224]
+[0.21298]
+[0.21350]
+[0.21382]
+[0.21393]
+[0.21382]
+[0.21350]
+[0.21298]
+[0.21224]
+[0.21129]
+[0.21014]
+[0.20877]
+[0.20721]
+[0.20543]
+[0.20346]
+[0.20128]
+[0.19890]
+[0.19633]
+[0.19357]
+[0.19061]
+[0.18746]
+[0.18413]
+[0.18062]
+[0.17693]
+[0.17307]
+[0.16903]
+[0.16483]
+[0.16047]
+[0.15595]
+[0.15127]
+[0.14644]
+[0.14147]
+[0.13636]
+[0.13112]
+[0.12574]
+[0.12024]
+[0.11463]
+[0.10890]
+[0.10306]
+[0.09712]
+[0.09109]
+[0.08496]
+[0.07875]
+[0.07246]
+[0.06611]
+[0.05968]
+[0.05320]
+[0.04667]
+[0.04009]
+[0.03347]
+[0.02681]
+[0.02013]
+[0.01343]
+[0.00672]
+  
+THIS IS THE NUMERICAL SOLUTION FOR m=99 dt=0.001 tf=0.5 
+[0.00674]
+[0.01347]
+[0.02018]
+[0.02688]
+[0.03355]
+[0.04019]
+[0.04678]
+[0.05333]
+[0.05983]
+[0.06627]
+[0.07265]
+[0.07895]
+[0.08517]
+[0.09131]
+[0.09736]
+[0.10332]
+[0.10917]
+[0.11491]
+[0.12055]
+[0.12606]
+[0.13144]
+[0.13670]
+[0.14183]
+[0.14681]
+[0.15165]
+[0.15634]
+[0.16087]
+[0.16525]
+[0.16946]
+[0.17350]
+[0.17738]
+[0.18108]
+[0.18460]
+[0.18793]
+[0.19109]
+[0.19405]
+[0.19682]
+[0.19940]
+[0.20178]
+[0.20396]
+[0.20595]
+[0.20772]
+[0.20930]
+[0.21066]
+[0.21182]
+[0.21277]
+[0.21351]
+[0.21404]
+[0.21436]
+[0.21446]
+[0.21436]
+[0.21404]
+[0.21351]
+[0.21277]
+[0.21182]
+[0.21066]
+[0.20930]
+[0.20772]
+[0.20595]
+[0.20396]
+[0.20178]
+[0.19940]
+[0.19682]
+[0.19405]
+[0.19109]
+[0.18793]
+[0.18460]
+[0.18108]
+[0.17738]
+[0.17350]
+[0.16946]
+[0.16525]
+[0.16087]
+[0.15634]
+[0.15165]
+[0.14681]
+[0.14183]
+[0.13670]
+[0.13144]
+[0.12606]
+[0.12055]
+[0.11491]
+[0.10917]
+[0.10332]
+[0.09736]
+[0.09131]
+[0.08517]
+[0.07895]
+[0.07265]
+[0.06627]
+[0.05983]
+[0.05333]
+[0.04678]
+[0.04019]
+[0.03355]
+[0.02688]
+[0.02018]
+[0.01347]
+[0.00674]
+  
+MEAN ERROR OF SOLUTIONS
+-0.00034
+  
+ELAPSED TIME
+0.05057 sec
+  
+TEMPLATE SOLUTION FOR 2D
+  
+MATRIX M   m=3 dt=0.1
+Matrix M: 
+[  3.0 -0.5      -0.5                         ]
+[ -0.5  3.0 -0.5      -0.5                    ]
+[      -0.5  3.0           -0.5               ]
+[ -0.5            3.0 -0.5      -0.5          ]
+[      -0.5      -0.5  3.0 -0.5      -0.5     ]
+[           -0.5      -0.5  3.0           -0.5]
+[                -0.5            3.0 -0.5     ]
+[                     -0.5      -0.5  3.0 -0.5]
+[                          -0.5      -0.5  3.0]
+  
+THIS IS THE EXACT SOLUTION FOR m=99 dt=0.001 tf=0.5 
+  
+THIS IS THE NUMERICAL SOLUTION FOR m=99 dt=0.001 tf=0.5 
+  
+MEAN ERROR OF SOLUTIONS
+-0.0
+  
+ELAPSED TIME
+10.9 sec
+  
+TEMPLATE SOLUTION FOR 3D
+  
+MATRIX M   m=3 dt=0.1
+Matrix M: 
+[  4.0 -0.5      -0.5                          -0.5                                                                                     ]
+[ -0.5  4.0 -0.5      -0.5                          -0.5                                                                                ]
+[      -0.5  4.0           -0.5                          -0.5                                                                           ]
+[ -0.5            4.0 -0.5      -0.5                          -0.5                                                                      ]
+[      -0.5      -0.5  4.0 -0.5      -0.5                          -0.5                                                                 ]
+[           -0.5      -0.5  4.0           -0.5                          -0.5                                                            ]
+[                -0.5            4.0 -0.5                                    -0.5                                                       ]
+[                     -0.5      -0.5  4.0 -0.5                                    -0.5                                                  ]
+[                          -0.5      -0.5  4.0                                         -0.5                                             ]
+[ -0.5                                          4.0 -0.5      -0.5                          -0.5                                        ]
+[      -0.5                                    -0.5  4.0 -0.5      -0.5                          -0.5                                   ]
+[           -0.5                                    -0.5  4.0           -0.5                          -0.5                              ]
+[                -0.5                          -0.5            4.0 -0.5      -0.5                          -0.5                         ]
+[                     -0.5                          -0.5      -0.5  4.0 -0.5      -0.5                          -0.5                    ]
+[                          -0.5                          -0.5      -0.5  4.0           -0.5                          -0.5               ]
+[                               -0.5                          -0.5            4.0 -0.5                                    -0.5          ]
+[                                    -0.5                          -0.5      -0.5  4.0 -0.5                                    -0.5     ]
+[                                         -0.5                          -0.5      -0.5  4.0                                         -0.5]
+[                                              -0.5                                          4.0 -0.5      -0.5                         ]
+[                                                   -0.5                                    -0.5  4.0 -0.5      -0.5                    ]
+[                                                        -0.5                                    -0.5  4.0           -0.5               ]
+[                                                             -0.5                          -0.5            4.0 -0.5      -0.5          ]
+[                                                                  -0.5                          -0.5      -0.5  4.0 -0.5      -0.5     ]
+[                                                                       -0.5                          -0.5      -0.5  4.0           -0.5]
+[                                                                            -0.5                          -0.5            4.0 -0.5     ]
+[                                                                                 -0.5                          -0.5      -0.5  4.0 -0.5]
+[                                                                                      -0.5                          -0.5      -0.5  4.0]
+  
+THIS IS THE EXACT SOLUTION FOR m=30 dt=0.001 tf=0.5 
+  
+THIS IS THE NUMERICAL SOLUTION FOR m=30 dt=0.001 tf=0.5 
+  
+MEAN ERROR OF SOLUTIONS
+-0.0
+  
+ELAPSED TIME
+23.4 sec
+=== End of output from execution of binary Final_project
