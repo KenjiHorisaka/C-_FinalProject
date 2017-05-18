@@ -79,7 +79,7 @@ Vector<double> solve = Heat<2>(0.3125,99,0.001).solve(0.5);
 std::cout<<"  "<<std::endl;
 std::cout<<"ERROR"<<std::endl;
 Vector <double> error=exact-solve;
-error.print_sum();
+error.print_mean();
 t2=clock();
 std::cout<<"  "<<std::endl;
 std::cout<<"Elapsed time"<<std::endl;
