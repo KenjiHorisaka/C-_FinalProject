@@ -19,7 +19,6 @@
 #include <cmath>
 #include "Vector.h"
 #include "Matrix.h"
-#include <exception>
 
 template <typename T>
 int cg(Matrix<T> &A,Vector<T> &b, Vector<T> &x, T &tol, T &maxiter){// I maxiter (Dont know if is correct)

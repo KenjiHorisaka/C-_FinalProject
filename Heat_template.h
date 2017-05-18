@@ -1,25 +1,29 @@
 #ifndef HEAT_TEMPLATE_H_INCLUDED
 #define HEAT_TEMPLATE_H_INCLUDED
-
-/*
- * \file Heat_template
+/**
+ * \file Heat_template.h
+ 
+ *
+ *
+ * \author Ronald Cumbal, Jorge Fuchs, Kenji Yanez
+ *
+ *
+ *\Purpose: Implement Heat Class templated to n dimensions
  * This file extends the class Heat to n dimensions. 
  * The Heat class solves the heat equation in chosen dimension via two different methods: 
  * exact and solve.
  *
- * \author Jorge, Ronald, Kenji
  *
- */
+ *\Version: 1.1 18/05/2017
+ *
+ **/
 
 #include <iostream>
-#include <algorithm>
 #include <cmath>
-#include <typeinfo>
-
 #include "Vector.h"
 #include "Matrix.h"
 #include "cg.h"
-
+#define M_PI           3.14159265358979323846  /* pi */
 
 
 template<int n>
