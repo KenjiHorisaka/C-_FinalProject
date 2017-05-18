@@ -30,7 +30,7 @@ class Vector
 	//Public general parameters
 	public:
 		int print_space = 5;//Space for printing purposes only
-		int decimal_space = 3;//Decimal space for printing purposes only
+		int decimal_space = 5;//Decimal space for printing purposes only
 
 	////////////////////// CONSTRUCTORS ///////////////////////////////	
     
