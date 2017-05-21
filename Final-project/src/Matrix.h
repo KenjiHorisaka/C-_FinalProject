@@ -31,45 +31,45 @@ class Matrix
 		std::size_t row; //Value for matrix's number of rows
 		std::size_t col;//Value for matrix's number of columns
 		std::map<std::array<int,2>,T> data;//Implementation of map
-	
-	////////////////////// CONSTRUCTORS ///////////////////////////////	
-    
+
+	////////////////////// CONSTRUCTORS ///////////////////////////////
+
 	//Default Constructor
     Matrix(): row(0), col(0){}
 
     //Constructor that takes dimensions
     Matrix(std::size_t r, std::size_t c): row(r), col(c){}
-	
+
 	///////////////// GET ATTRIBUTE METHODS ///////////////////////////
-    
+
 	//Help to get private attributes in out of scope functions
     inline const std::size_t get_row() const { return row; }
     inline const std::size_t get_col() const { return col; }
-    
+
 	/////////////////////// OPERATORS /////////////////////////////////
 	T& operator[](std::array<int,2> arr)
     {
 		//Matrix dimension verification
 		if (arr[0] >= row){
-            std::cout << "Element out of size!![Row]" <<std::endl;
+            std::cout << "Element "<< arr[0] <<" out of size!![Row: "<< row <<" ]" <<std::endl;
 		}//end if
 		if (arr[1] >= col ){
-            std::cout << "Element out of size!![Col]" <<std::endl;
+            std::cout << "Element "<< arr[1] <<" out of size!![Col: "<< col <<" ]" <<std::endl;
 		}//end if
-			
+
         return data[{arr[0],arr[1]}];
     }//end [] operator
 
     T operator[](std::array<int,2> arr) const
-    {		
+    {
 		//Matrix dimension verification
         if (arr[0] >= row || arr[1] >= col )
             std::cout << "Element out of size!![2. In matrix]" <<std::endl;
         return data[{arr[0],arr[1]}];
     }//end [] operator const
 
-	//////////////////// CLASS METHODS /////////////////////////////////	
-	
+	//////////////////// CLASS METHODS /////////////////////////////////
+
 	//Class method to make multiplication between a matrix and a vector
     Vector<T> matvec(const Vector<T>& vec)
     {
@@ -83,10 +83,10 @@ class Matrix
         {
 			//Declaration of the resultant vector "result"
             Vector<T> result(vec.size());
-			
+
 			//Initialization of resultant vector to avoid memory allocation problems
 			for (int r=0; r<row; r++){result.get(r)=0;}
-			
+
 			//Multiplication of Matrix and vector elements
 			for (auto it=data.begin(); it!=data.end();it++){
 				auto ind=it->first;
@@ -94,10 +94,10 @@ class Matrix
 				result.get(ind[0])+=dat*vec.get(ind[1]);}
 				//Return the resultant vector
 				return result;
-		
+
 		}//end else
     }//end matvec
-	
+
 	//Method to print the Matrix
     void print()
     {
@@ -115,19 +115,19 @@ class Matrix
             std::cout << std::endl;
         }//end for r
     }//end print
-	
+
 	// Transpose
 	Matrix<T> transpose()
 	{
 		Matrix<T> Transp(get_col(),get_row()) ;
-		
+
 		for(auto it=data.begin();it!=data.end();it++){
 			auto ind=it->first;
 			Transp[{ind[1],ind[0]}]=data[ind];
 		}//end for
 		return Transp;
 	};//end transpose
-	
+
 	//Evaluate if matrix is symmetric
 	int is_symmetric()
 	{
