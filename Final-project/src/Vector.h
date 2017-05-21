@@ -26,14 +26,14 @@ class Vector
 	private:
 		T* data;
 		std::size_t n;
-	
+
 	//Public general parameters
 	public:
 		int print_space = 5;//Space for printing purposes only
 		int decimal_space = 5;//Decimal space for printing purposes only
 
-	////////////////////// CONSTRUCTORS ///////////////////////////////	
-    
+	////////////////////// CONSTRUCTORS ///////////////////////////////
+
 	//Default constructor that sets the length to zero
     Vector(): n(0), data(nullptr) {}
 
@@ -56,14 +56,14 @@ class Vector
         std::uninitialized_copy(lists.begin(), lists.end(), data);
     }//end Constructor
 
-	////////////////////// DESTRUCTOR ///////////////////////////////	
-	
+	////////////////////// DESTRUCTOR ///////////////////////////////
+
 	~Vector()
 	{
 		n=0;
 		delete[] data;
 	}//end Destructor
-	
+
 	///////////////// GET ATTRIBUTE METHODS ///////////////////////////
 
     //Help to get private attributes in out of scope functions
@@ -73,13 +73,13 @@ class Vector
     // Get data pointer
     inline T& get(const std::size_t& i) { return data[i];}
 
-	/////////////////////////// OPERATORS /////////////////////////////////		
+	/////////////////////////// OPERATORS /////////////////////////////////
 
     /*
 	The Vector supports the copy and move assignment operators.
     It is allowed to change the length of the Vector upon assignment,
     */
-	 
+
 	//Copy assignment operator
     const Vector<T>& operator=(const Vector<T>& other)
     {
@@ -109,7 +109,7 @@ class Vector
     }//end Move assignment operator
 
 	//////////////////// CLASS METHODS /////////////////////////////////
-    
+
 	//Class method to print vector elements.
     void print()
     {
@@ -123,12 +123,12 @@ class Vector
          std::cout << "empty" << std::endl;
         }//end else
     }//end print
-	
+
 	//Class method to print the sum of the Vector elements
 	void print_mean(){
 		T result;
 		for (std::size_t i=0; i<n;i++){result+=data[i];};
-		std::cout<<result/(double)n<<std::endl;
+		std::cout<<std::setprecision(5)<<std::fixed<<result/(double)n<<std::endl;
 	}//end print_sum
 
 };//end class Vector
