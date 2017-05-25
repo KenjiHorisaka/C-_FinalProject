@@ -27,10 +27,10 @@ int main(){
 	t1=clock();
 	std::cout<<"\nTHIS IS THE EXACT SOLUTION FOR m=99 dt=0.001 tf=0.5 "<<std::endl;
 	Vector<double> exact1 = Heat<1>(0.3125,99,0.001).exact(0.5);
-	//exact1.print();
+	exact1.print();
 	std::cout<<"\nTHIS IS THE NUMERICAL SOLUTION FOR m=99 dt=0.001 tf=0.5 "<<std::endl;
 	Vector<double> solve1 = Heat<1>(0.3125,99,0.001).solve(0.5);
-	//solve.print();
+	solve1.print();
 	std::cout<<"\nMEAN ERROR OF SOLUTIONS"<<std::endl;
 	Vector <double> error1=exact1-solve1;
 	error1.print_mean();
